@@ -30,8 +30,8 @@
 |user                |references|null: false, foreign_key: true|
 
 ### Assosiation
-- has_one :purchases
-- belongs_to :users
+- has_one :purchase
+- belongs_to :user
 
 ## purchases
 |Column           |Type      |Option                        |
@@ -40,9 +40,9 @@
 |item             |references|null: false, foreign_key: true|
 
 ### Assosiation
-- belongs_to :items
-- belongs_to :users
-- has_one :shippings
+- belongs_to :item
+- belongs_to :user
+- has_one :shipping
 
 ## shippings
 |Column           |Type      |Option                        |
@@ -51,7 +51,7 @@
 |prefecture_id    |integer   |null: false                   |
 |city             |string    |null: false                   |
 |address          |string    |null: false                   |
-|building         |string    |                             |
+|building         |string    |null: false                   |
 |phone_number     |string    |null: false                   |
 |purchase         |references|null: false, foreign_key: true|
 
