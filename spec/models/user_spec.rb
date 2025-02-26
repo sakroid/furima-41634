@@ -6,6 +6,26 @@ RSpec.describe User, type: :model do
   end
 
   describe 'ユーザー新規登録' do
+    context '新規登録できるとき' do
+      it '正常に登録できる' do
+        expect(@user).to be_valid
+      end
+      it 'passwordとpassword_confirmationが6文字以上であれば登録できる' do
+        @user.password = 'test1234'
+        @user.password_confirmation = 'test1234'
+        expect(@user).to be_valid
+      end
+      it 'first_nameとlast_nameが全角であれば登録できる' do
+        @user.first_name = '櫻井'
+        @user.last_name = 'アキラ'
+        expect(@user).to be_valid
+      end
+      it 'first_name_kanaとlast_name_kanaが全角カタカナであれば登録できる' do
+        @user.first_name_kana = 'サクライ'
+        @user.last_name_kana = 'アキラ'
+        expect(@user).to be_valid
+      end
+    end
     context '新規登録できない場合' do
       it 'nicknameが空では登録できない' do
         @user.nickname = ''
@@ -75,13 +95,19 @@ RSpec.describe User, type: :model do
         @user.password = '11111111'
         @user.password_confirmation = '11111111'
         @user.valid?
-        expect(@user.errors.full_messages).to include('Password パスワードには半角英字と半角数字の両方を含めて設定してください')
+        expect(@user.errors.full_messages).to include('Password には半角英字と半角数字の両方を含めて設定してください')
       end
       it 'passwordが英字だけだと登録できない' do
         @user.password = 'aaaaaaaa'
         @user.password_confirmation = 'aaaaaaaa'
         @user.valid?
-        expect(@user.errors.full_messages).to include('Password パスワードには半角英字と半角数字の両方を含めて設定してください')
+        expect(@user.errors.full_messages).to include('Password には半角英字と半角数字の両方を含めて設定してください')
+      end
+      it 'passwordが全角だと登録できない' do
+        @user.password = 'あああああああ'
+        @user.password_confirmation = 'あああああああ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password には半角英字と半角数字の両方を含めて設定してください')
       end
       it 'first_nameが半角では登録できない' do
         @user.first_name = 'aaaa'
