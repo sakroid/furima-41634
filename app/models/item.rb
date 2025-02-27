@@ -9,7 +9,6 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :schedule_delivery
   validates :price, numericality: { only_integer: true, greater_than: 299, less_than: 10_000_000 }
-  validates :price, format: { with: /\A[0-9]+\z/, message: '半角数字で入力して下さい' }
   with_options presence: true do
     validates :name
     validates :info
