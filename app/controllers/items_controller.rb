@@ -13,14 +13,13 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    return unless @item.user_id != current_user.id
+    return if @item.user_id == current_user.id
 
     redirect_to root_path
   end
 
   def update
-    @item.update(item_params)
-    if @item.save
+    if @item.update(item_params)
       redirect_to item_path(@item.id)
     else
       render :edit, status: :unprocessable_entity
