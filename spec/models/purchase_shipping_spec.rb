@@ -74,6 +74,11 @@ RSpec.describe PurchaseShipping, type: :model do
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include('Phone number PhoneNumber must be 10or11 digit Half-width numbers')
       end
+      it '電話番号が数字以外が入ってると購入できない' do
+        @purchase_shipping.phone_number = 'abcdefghijk'
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include('Phone number PhoneNumber must be 10or11 digit Half-width numbers')
+      end
       it 'tokenが空だと購入できない' do
         @purchase_shipping.token = ''
         @purchase_shipping.valid?
