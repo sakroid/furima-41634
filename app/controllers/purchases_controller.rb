@@ -1,6 +1,7 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_purchase
+  before_action :move_to_index
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @purchase_shipping = PurchaseShipping.new
@@ -38,4 +39,9 @@ class PurchasesController < ApplicationController
         currency: 'jpy' 
       )
   end
+
+  def move_to_index
+    redirect_to root_path if @item.purchase.present? || current_user.id == @item.user_id
+  end
+
 end
