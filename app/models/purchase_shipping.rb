@@ -9,8 +9,8 @@ class PurchaseShipping
     validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'PhoneNumber must be 10or11 digit Half-width numbers' }
     validates :city
     validates :address
-    validates :token
     validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
+    validates :token
   end
 
   def save

@@ -16,6 +16,9 @@ RSpec.describe PurchaseShipping, type: :model do
         @purchase_shipping.building = ''
         expect(@purchase_shipping).to be_valid
       end
+      it 'priceとtokenがあれば保存ができること' do
+        expect(@purchase_shipping).to be_valid
+      end
     end
 
     context '購入処理ができない' do
