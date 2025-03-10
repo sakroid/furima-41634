@@ -3,7 +3,7 @@ class PurchasesController < ApplicationController
   before_action :set_purchase
   before_action :move_to_index
   def index
-    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
     @purchase_shipping = PurchaseShipping.new
   end
 
@@ -14,7 +14,7 @@ class PurchasesController < ApplicationController
       @purchase_shipping.save
       redirect_to root_path
     else
-      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+      gon.public_key = ENV['PAYJP_PUBLIC_KEY']
       render :index, status: :unprocessable_entity
     end
   end
@@ -32,16 +32,15 @@ class PurchasesController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
-      Payjp::Charge.create(
-        amount: @item.price, 
-        card: purchase_params[:token], 
-        currency: 'jpy' 
-      )
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: purchase_params[:token],
+      currency: 'jpy'
+    )
   end
 
   def move_to_index
     redirect_to root_path if @item.purchase.present? || current_user.id == @item.user_id
   end
-
 end
