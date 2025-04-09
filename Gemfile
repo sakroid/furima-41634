@@ -85,3 +85,5 @@ gem 'image_processing', '~> 1.2'
 gem 'payjp'
 
 gem 'gon'
+
+gem 'rails-i18n'
